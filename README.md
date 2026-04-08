@@ -68,7 +68,7 @@ docker compose run --rm --no-deps node sh -c "npm install && npm run build"
 | Поле   | Значення          |
 |--------|-------------------|
 | Email  | `demo@demo.local` |
-| Пароль | `demo12345`       |
+| Пароль | `Test1234!`       |
 
 Користувач має права **суперадміна**. Створюється сидером `Database\Seeders\DatabaseSeeder`.
 
