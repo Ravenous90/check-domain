@@ -28,6 +28,8 @@ WORKDIR /var/www/html
 
 COPY . .
 COPY --from=frontend /app/public/build ./public/build
+# Dev-only file; if present, Blade @vite emits dev-server URLs and the SPA stays blank in production.
+RUN rm -f public/hot
 
 RUN composer install --no-dev --no-interaction --optimize-autoloader --no-scripts \
     && mkdir -p storage/framework/sessions storage/framework/views storage/framework/cache/data storage/logs bootstrap/cache \
@@ -38,4 +40,5 @@ USER www-data
 EXPOSE 8080
 ENV PORT=8080
 
-CMD ["sh", "-c", "php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
+# Migrations on boot: Railway releaseCommand sometimes does not run or DB was empty — без таблиць буде 500 (sessions/cache).
+CMD ["sh", "-c", "php artisan migrate --force --no-interaction && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
