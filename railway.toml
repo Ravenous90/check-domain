@@ -1,0 +1,12 @@
+# Railway: https://railway.app — підключи репозиторій, додай MySQL, задай змінні з docs/DEPLOY.md
+# Другий сервіс (воркер): той самий Docker image, Start Command: sh scripts/railway-worker.sh
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+releaseCommand = "php artisan migrate --force --no-interaction"
+restartPolicyType = "ON_FAILURE"
+healthcheckPath = "/up"
+healthcheckTimeout = 120
