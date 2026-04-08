@@ -8,5 +8,5 @@ dockerfilePath = "Dockerfile"
 [deploy]
 releaseCommand = "php artisan migrate --force --no-interaction"
 restartPolicyType = "ON_FAILURE"
-healthcheckPath = "/up"
-healthcheckTimeout = 120
+# Не задавай healthcheck тут: той самий railway.toml читають веб і воркер — воркер без HTTP, /up йому ламає деплой.
+# На веб-сервісі в Railway: Settings → Healthcheck Path = /up (тільки для сервісу з php artisan serve).
