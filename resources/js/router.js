@@ -23,6 +23,10 @@ const router = createRouter({
 router.beforeEach((to) => {
     const token = getToken();
     if (to.meta.auth && ! token) {
+        if (to.fullPath === '/' || to.fullPath === '') {
+            return { name: 'login' };
+        }
+
         return { name: 'login', query: { redirect: to.fullPath } };
     }
     if (to.meta.guest && token) {
